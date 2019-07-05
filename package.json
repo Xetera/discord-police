@@ -1,6 +1,6 @@
 {
   "name": "discord-police",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A pre-commit hook that prevents users from leaking their discord token",
   "main": "index.js",
   "bin": {
