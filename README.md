@@ -20,7 +20,6 @@ npm install --save-dev discord-police husky
     "discord-police": "1.0.0",
     "husky": "^3.0.0"
   },
-  // add this part
   "husky": {
     "hooks": {
       "pre-commit": "discord-police --dir src"
