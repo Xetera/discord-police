@@ -63,7 +63,3 @@ main = runTest do
   suite "token" tokenSuite
   suite "glob" globSuite
   
-
-      
-  
-  

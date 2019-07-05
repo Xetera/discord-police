@@ -4,34 +4,29 @@ module Token
   , hasToken
   , readFileString
   , getFileWithToken
-  , handleOffense
   , readGitIgnore
   ) where
 
 import Prelude
 
 import Data.Array (findIndex)
-import Data.Either (fromRight)
 import Data.List (List(..), (:))
 import Data.Maybe (Maybe(..))
-import Data.String.Regex (Regex, test, regex)
+import Data.String.Regex (Regex, test)
 import Data.String.Regex.Flags (RegexFlags, global, multiline)
+import Data.String.Regex.Unsafe (unsafeRegex)
 import Effect.Aff (Aff)
-import Effect.Class (liftEffect)
-import Effect.Class.Console (log)
 import Models (FileInfo, FileSearchResult)
 import Node.Encoding (Encoding(..))
 import Node.FS.Aff (exists, readTextFile)
 import Node.Path (FilePath)
-import Node.Process (exit)
-import Partial.Unsafe (unsafePartial)
-import Utility (bool, lines, logError, logSuccess)
+import Utility (bool, lines)
 
 tokenFlags :: RegexFlags
 tokenFlags = global <> multiline
 
 tokenRegex :: Regex
-tokenRegex = unsafePartial fromRight $ regex "[MN][A-Za-z\\d]{23}\\.[\\w-]{6}\\.[\\w-]{27}" tokenFlags
+tokenRegex = unsafeRegex "[MN][A-Za-z\\d]{23}\\.[\\w-]{6}\\.[\\w-]{27}" tokenFlags
 
 hasToken :: String -> Boolean
 hasToken = test tokenRegex
@@ -55,15 +50,6 @@ getFileWithToken (x:xs) = do
   case tokenPosition of
     Just position -> pure $ Just { file: x, position: position }
     Nothing -> getFileWithToken xs
-
-handleOffense :: Maybe FileSearchResult -> Aff Unit
-handleOffense Nothing = do
-  logSuccess "No token leak was detected"
-  liftEffect $ exit 0
-
-handleOffense (Just { file, position }) = do
-  logError $ "A discord bot token was found in " <> file.name <> " on line " <> show position
-  liftEffect $ exit 1
 
 readGitIgnore :: Aff (Array String)
 readGitIgnore = bool (lines <$> readFileString target) (pure []) =<< exists target

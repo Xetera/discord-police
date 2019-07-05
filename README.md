@@ -1,6 +1,6 @@
 # Discord Police
 
-![](https://media1.tenor.com/images/3d596ad88741269a62e73d75c81afde4/tenor.gif?itemid=9529075)
+<img src="https://media1.tenor.com/images/3d596ad88741269a62e73d75c81afde4/tenor.gif?itemid=9529075" width="250">
 
 Check your files for leaked discord bot tokens before you commit your files.
 
@@ -12,12 +12,14 @@ npm install --save-dev discord-police husky
 
 ## Using as a pre-commit hook
 
+Add the following `husky` property to your `package.json`
+
 ```json
 {
   "name": "my-discord-bot",
   "version": "1.0.0",
   "devDependencies": {
-    "discord-police": "1.0.0",
+    "discord-police": "1.0.2",
     "husky": "^3.0.0"
   },
   "husky": {
@@ -28,6 +30,12 @@ npm install --save-dev discord-police husky
 }
 ```
 
+The next time you commit your files to git, they will automatically be checked for tokens.
+
+```
+[ Discord Police 🚨 ] A discord bot token was found in src/index.js on line 7
+```
+
 ## CLI
 
 ```
@@ -36,7 +44,7 @@ discord-police --dir src --ignore .env,secret_files
 
 ## Args
 
-`--dir` Directory to search from **Default:** `.`
+`--dir` Directory to search from
 
 ---
 

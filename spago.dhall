@@ -14,6 +14,7 @@ You can edit this file as you like.
     , "node-fs-aff"
     , "node-path"
     , "node-process"
+    , "prelude"
     , "psci-support"
     , "test-unit"
     , "yargs"
