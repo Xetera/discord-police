@@ -11,7 +11,7 @@ import Node.Path (FilePath)
 
 type FileInfo_ =
   { name :: FilePath
-  , fileType :: Strin
+  , fileType :: String
   }
 
 foreign import _readDir :: FilePath -> EffectFnAff (Array FileInfo_)
