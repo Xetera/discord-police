@@ -1,0 +1,9 @@
+src
+output
+packages.dhall
+spago.dhall
+.spago
+.psci_modules
+scripts
+.psc-ide-port
+test

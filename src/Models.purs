@@ -1,5 +1,11 @@
-module Models (FileType(..), FileInfo(..), FileSearchResult(..)) where
+module Models 
+  ( FileType(..)
+  , FileInfo(..)
+  , FileSearchResult(..)
+  , CommandInput
+  ) where
 
+import Data.Maybe (Maybe)
 import Node.Path (FilePath)
 
 data FileType
@@ -14,4 +20,9 @@ type FileInfo =
 type FileSearchResult = 
   { file :: FileInfo
   , position :: Int
+  }
+
+type CommandInput =
+  { dir :: FilePath
+  , ignore :: Maybe (Array FilePath)
   }

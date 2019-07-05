@@ -2,25 +2,32 @@ module Main where
 
 import Prelude
 
-import Data.List (filterM)
-import Data.List.NonEmpty (foldM)
-import Data.Maybe (Maybe(..), maybe)
-import Data.Traversable (traverse)
-import Debug.Trace (traceM)
+import Cli (convertIgnoreDir, runParser)
 import Effect (Effect)
 import Effect.Aff (launchAff_)
 import Glob (glob)
 import Node.Path (FilePath)
-import Node.Process (exit)
-import Token (fileHasTokenAt, getFileWithToken, handleOffense, hasToken)
-import Utility (truthy)
+import Token (getFileWithToken, handleOffense, readGitIgnore)
 
 defaultIgnores :: Array FilePath
-defaultIgnores = [".git", "dist", "output", "node_modules", ".spago", ".psci_modules"]
+defaultIgnores =
+  [ ".git"
+  , "dist"
+  , "output"
+  , "node_modules"
+  , ".spago"
+  , ".psci_modules"
+  ]
+
+runChecker :: FilePath -> String -> Effect Unit
+runChecker dest ignoreString = launchAff_ do
+  let ignoring = convertIgnoreDir ignoreString
+  gitIgnore <- readGitIgnore
+  globbed <- glob dest $ gitIgnore <> defaultIgnores <> ignoring
+  handleOffense =<< getFileWithToken globbed
 
 main :: Effect Unit
-main = launchAff_ do
-  globbed <- glob "src" defaultIgnores
-  offending <- getFileWithToken globbed
-  handleOffense offending
+main = launchAff_ $ runParser runChecker
+  
+
 

@@ -1,16 +1,27 @@
 {
-  "name": "discord-token-protect",
+  "name": "discord-police",
   "version": "1.0.0",
-  "description": "",
+  "description": "A pre-commit hook that prevents users from leaking their discord token",
   "main": "index.js",
+  "bin": {
+    "discord-police": "index.js"
+  },
   "scripts": {
     "dev": "spago run",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "spago test",
+    "build": "spago bundle-app && node ./scripts/build.js",
+    "prepublish": "npm run build",
+    "prebuild": "npm run test"
   },
   "keywords": [],
-  "author": "",
+  "dependencies": {
+    "yargs": "^13.2.4"
+  },
+  "author": "Xetera",
   "license": "ISC",
   "devDependencies": {
+    "husky": "^3.0.0",
+    "purty": "^4.4.1",
     "spago": "^0.8.5"
   }
 }
