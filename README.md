@@ -58,3 +58,11 @@ Discord police automatically ignores everything inside your `.gitignore` file. T
 `--ignore` List of directories/files to ignore separated by commas **Default:** `null`
 
 Files and folders ignored by default: `node_modules`, `dist`, `.git`, `output`
+
+## For non-js projects
+The compiled js code is available at https://unpkg.com/discord-police@latest/index.js
+
+You can use the following command to download it and add it as a hook directly
+```bash
+wget https://unpkg.com/discord-police@latest/index.js -O .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
+```
