@@ -4,6 +4,8 @@
 
 Check your files for leaked discord bot tokens before you commit to git.
 
+> ⚠️ GitHub now [checks for tokens](https://help.github.com/en/github/administering-a-repository/about-token-scanning) including Discord tokens in public repos and gists automatically. This repo can still be used for other git hosts that don't token scan, but it's now mostly obsolete for GitHub.
+
 ## Install
 
 ```
