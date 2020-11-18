@@ -15,7 +15,7 @@
   },
   "keywords": [],
   "dependencies": {
-    "yargs": "^13.2.4"
+    "yargs": "^16.0.0"
   },
   "author": "Xetera",
   "license": "ISC",
